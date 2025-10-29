@@ -15,24 +15,24 @@
       box-sizing: border-box;
     }
 
-    /* BODY => Warm organic background */
+    /* BODY => Clean, minimal */
     body {
-      font-family: "Helvetica Neue", sans-serif;
-      background: linear-gradient(180deg, #faf8f5 0%, #f0ebe3 100%); /* Warm cream gradient */
-      color: #2c2c2c; /* Dark gray for text */
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+      background-color: #000000;
+      color: #ffffff;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
     
     html {
-      scroll-behavior: smooth; /* Smooth scrolling */
+      scroll-behavior: smooth;
     }
 
     /************************************************************
-     * A) PAGE WRAPPER => limit width, center => white margins
+     * A) PAGE WRAPPER => Full bleed
      ************************************************************/
     .page-wrapper {
-      max-width: 1200px;
-      margin: 0 auto;
+      width: 100%;
       position: relative;
     }
 
@@ -40,64 +40,70 @@
      * STICKY HERO (TRANSPARENT BLEND)
      ************************************************************/
     .hero-container {
-      position: sticky;
-      top: 0; left: 0; right: 0;
-      background: rgba(250, 248, 245, 0.95); /* Warm semi-transparent */
-      backdrop-filter: blur(20px); /* Stronger frosted glass effect */
-      border-bottom: 1px solid rgba(218, 203, 184, 0.3); /* Warm subtle border */
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(40px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       z-index: 2000;
-      padding: 2rem;
-      transition: padding 0.3s ease;
-      color: #2c2c2c; /* Dark text */
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.03);
+      padding: 1.5rem 5%;
+      transition: all 0.3s ease;
+      color: #ffffff;
     }
+    
+    @media (max-width: 768px) {
+      .hero-container {
+        padding: 1.2rem 5%;
+      }
+    }
+    
     .hero-container.shrink {
-      padding: 1rem;
+      padding: 1rem 5%;
+      background: rgba(0, 0, 0, 0.95);
     }
 
-    /* Animated pop for hero title letters with mask effect */
+    /* Clean, bold typography */
     .hero-title {
       display: inline-block;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 300; /* Lighter, more refined */
-      margin-bottom: 1rem;
-      color: #2c2c2c; /* Solid dark text initially */
-      position: relative;
-      z-index: 1;
-      transition: color 0.5s ease;
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
       letter-spacing: -0.02em;
     }
 
     .hero-title.mask {
-      color: transparent; /* Make text transparent to reveal background */
-      -webkit-text-stroke: 1.1px #2c2c2c; /* Optional: Outline for readability */
-      mix-blend-mode: multiply; /* Blend mode to allow background visibility */
+      opacity: 0.4;
     }
     .hero-title .letter {
       display: inline-block;
       transform: scale(0.7);
       animation: popIn 0.5s ease forwards;
     }
+    
+    .hero-container.shrink .hero-about {
+      display: none;
+    }
 
-    @media (max-width: 768px) { /* Target devices with a width of 768px or less */
+    @media (max-width: 768px) {
       .hero-container.shrink {
-        padding: 1.1rem; /* Smaller padding for mobile */
+        padding: 1rem 5%;
       }
 
       .hero-title {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
       }
 
-      /* Prevent "About" Text from Animating on Mobile */
       .hero-container {
-        transition: none !important; /* No transition on padding */
+        transition: none !important;
       }
 
       .hero-about {
         display: block !important;
         opacity: 1;
-        transition: none !important;
-        animation: none !important;
+        font-size: 0.9rem;
       }
 
       .hero-container.shrink .hero-about {
@@ -107,77 +113,84 @@
       .hero-container.shrink .contact-row {
         display: none !important;
       }
-
-      .hero-container.shrink {
-        padding: 1.1rem;
-      }
     }
 
     @keyframes popIn {
       to { transform: scale(1); }
     }
 
-    .hero-container.shrink .hero-about,
-    .hero-container.shrink .contact-row {
-      display: none; /* Hide about/contact in shrink mode */
-    }
     .hero-about {
-      line-height: 1.7;
-      font-size: 1.05rem;
-      color: #6b6b6b; /* Softer gray */
-      margin-bottom: 1.5rem;
-      max-width: 700px;
+      line-height: 1.6;
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 1.2rem;
+      max-width: 600px;
       font-weight: 400;
     }
     .contact-row {
       display: flex;
-      gap: 1rem;
+      gap: 1.8rem;
       justify-content: left;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
+      transition: all 0.3s ease;
     }
 
     .contact-row a {
-      color: #8b7355; /* Warm brown for icons */
-      font-size: 24px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 28px;
       text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s ease;
     }
     .contact-row a:hover {
-      color: #c49a6c; /* Warm gold on hover */
-      transform: translateY(-2px);
+      color: #ffffff;
+      transform: translateY(-3px) scale(1.1);
     }
-
-    /* Nav pills with simplified hover effect */
+    
+    /* Keep contact icons in collapsed header, move to right */
+    .hero-container.shrink .contact-row {
+      position: absolute;
+      right: 150px;
+      top: 50%;
+      transform: translateY(-50%);
+      margin: 0;
+      gap: 1.5rem;
+    }
+    
+    .hero-container.shrink .contact-row a {
+      font-size: 20px;
+    }
+    /* Minimal navigation */
     .nav-pills {
       display: flex;
-      gap: 0.5rem;
+      gap: 2.5rem;
     }
     .nav-pills a {
       position: relative;
       display: inline-block;
-      padding: 0.5rem 1.2rem;
-      border-radius: 20px;
+      padding: 0;
       text-decoration: none;
       font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.6);
       letter-spacing: 0.05em;
-      color: #2c2c2c;
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(10px);
-      border: 1.5px solid rgba(139, 115, 85, 0.2);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-transform: uppercase;
+      transition: color 0.3s ease;
     }
     .nav-pills a:hover {
-      border-color: #8b7355;
-      background: rgba(255, 255, 255, 0.9);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(139, 115, 85, 0.15);
+      color: #ffffff;
     }
     .nav-pills a.active {
-      background: #8b7355;
       color: #ffffff;
-      border-color: #8b7355;
+    }
+    .nav-pills a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #ffffff;
+    } background: rgba(255, 255, 255, 0.7); /* Maintain background on hover */
     }
 
     /************************************************************
@@ -188,122 +201,80 @@
       margin-top: -40px;
       padding-top: 8rem;
       padding-bottom: 4rem;
-      border-radius: 0 0 30px 30px;
+      border-radius: 0 0 20px 20px;
       overflow: hidden;
-      color: #2c2c2c;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-      background-color: #ffffff;
-      border: 1px solid rgba(218, 203, 184, 0.2);
+      color: #2c2c2c; /* Dark text */
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      background-color: #ffffff; /* White background */
+      border: 1px solid #e0e0e0; /* Light gray border */
+    }
+    
+    /* Add spacing for first section to clear fixed header */
+    .section-card:first-of-type {
+      padding-top: 150px;
     }
 
     /* Removed section titles as per user request */
 
-    /* Masonry layout for organic feel */
+    /* Adjusted multi-column layout for better spacing */
     .multi-column {
-      column-count: 4;
-      column-gap: 1.2rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
       padding: 1rem;
+      padding-top: 3rem;
+    }
+    
+    /* Extra padding for first section to clear fixed header */
+    #card3D .multi-column {
+      padding-top: 200px;
     }
     .col {
-      /* Not used in masonry, but keeping for compatibility */
       flex: 1;
       min-width: 200px;
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
-    
-    /* Override for masonry items */
-    .multi-column .rect-video {
-      break-inside: avoid;
-      margin-bottom: 1.2rem;
-      display: block;
-    }
 
-    /* Responsive Masonry Columns */
+    /* Responsive Columns */
     @media (max-width: 767px) {
-      .multi-column {
-        column-count: 1;
+      .col {
+        width: 100%;
       }
     }
     @media (min-width: 768px) and (max-width: 1023px) {
-      .multi-column {
-        column-count: 2;
+      .col {
+        width: 50%;
       }
     }
-    @media (min-width: 1024px) and (max-width: 1400px) {
-      .multi-column {
-        column-count: 3;
+    @media (min-width: 1024px) {
+      .col {
+        width: 25%;
       }
     }
 
-    /* Enhanced Video Layout with hover indicator */
+    /* Enhanced Video Layout */
     .rect-video {
       width: 100%;
       cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      border-radius: 12px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-radius: 0px;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      background: linear-gradient(135deg, #f5f1ed 0%, #e8dfd5 100%);
-      position: relative;
-      opacity: 0;
-      animation: fadeInUp 0.6s ease forwards;
-    }
-    
-    /* Staggered fade-in animation */
-    .rect-video:nth-child(1) { animation-delay: 0.05s; }
-    .rect-video:nth-child(2) { animation-delay: 0.1s; }
-    .rect-video:nth-child(3) { animation-delay: 0.15s; }
-    .rect-video:nth-child(4) { animation-delay: 0.2s; }
-    .rect-video:nth-child(5) { animation-delay: 0.25s; }
-    .rect-video:nth-child(6) { animation-delay: 0.3s; }
-    .rect-video:nth-child(7) { animation-delay: 0.35s; }
-    .rect-video:nth-child(8) { animation-delay: 0.4s; }
-    
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    /* Play indicator overlay */
-    .rect-video::after {
-      content: '▶';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 3rem;
-      color: rgba(255, 255, 255, 0.8);
-      opacity: 0;
-      transition: opacity 0.3s;
-      pointer-events: none;
-      z-index: 10;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      background-color: #f0f0f0; /* Placeholder background */
     }
 
     .rect-video:hover {
-      transform: scale(1.02) translateY(-4px);
-      box-shadow: 0 12px 28px rgba(139, 115, 85, 0.2);
-      z-index: 10;
-    }
-    
-    .rect-video:hover::after {
-      opacity: 1;
+      transform: scale(1.05);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
     }
 
     /* Overlay Styling */
     .overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(250, 248, 245, 0.98); /* Warm overlay */
-      backdrop-filter: blur(10px);
+      background-color: rgba(255, 255, 255, 0.95); /* Light overlay */
       display: none;
       align-items: center;
       justify-content: center;
@@ -314,48 +285,42 @@
     }
     .overlay-content {
       position: relative;
-      background-color: #ffffff;
-      padding: 1.5rem;
+      background-color: #ffffff; /* White background */
+      padding: 2rem;
       display: flex;
       align-items: center;
       justify-content: center;
       max-width: 90%;
-      max-height: 90%;
+      max-height: 85vh;
       overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-      border: 1px solid rgba(218, 203, 184, 0.3);
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
     }
     .overlay-content video {
       display: block;
-      max-width: 100%;
-      max-height: 100%;
+      width: 100%;
+      height: 100%;
+      max-height: 80vh;
       object-fit: contain;
     }
     .close-btn {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background-color: rgba(139, 115, 85, 0.9);
-      color: #ffffff;
+      top: 0.5rem;
+      right: 0.5rem;
+      background-color: #e0e0e0; /* Light gray */
+      color: #2c2c2c; /* Dark text */
       border: none;
-      font-size: 1.2rem;
-      width: 36px;
-      height: 36px;
+      font-size: 1rem;
+      padding: 0.3rem 0.6rem;
       cursor: pointer;
-      border-radius: 50%;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 300;
+      border-radius: 4px;
+      transition: background-color 0.3s;
     }
     .close-btn:hover {
-      background-color: #8b7355;
-      transform: rotate(90deg) scale(1.1);
+      background-color: #c0c0c0; /* Darker gray on hover */
     }
   </style>
-</head>
+</head>pa
 <body>
   <!-- PAGE WRAPPER for white side margins -->
   <div class="page-wrapper">
@@ -365,17 +330,14 @@
       <div class="hero-content">
         <h1 class="hero-title" id="heroTitle"></h1>
         <div class="hero-about">
-          Visual experiments exploring procedural systems, generative design, and computational aesthetics.
+          Exploring procedural techniques in Houdini, motion design, and creative coding. Looking for technical artist internships.
         </div>
         <div class="contact-row">
-          <a href="mailto:girmayonatan86@gmail.com" aria-label="Email">
+          <a href="mailto:yonatan.gm@gmail.com" aria-label="Email">
             <i class="fas fa-envelope"></i>
           </a>
           <a href="https://www.linkedin.com/in/yonatan-mamo-07b426137/" target="_blank" aria-label="LinkedIn">
             <i class="fab fa-linkedin"></i>
-          </a>
-          <a href="https://www.instagram.com/yonatan.gm/" target="_blank" aria-label="Instagram">
-            <i class="fab fa-instagram"></i>
           </a>
           <a href="https://www.behance.net/yonatanmamo" target="_blank" aria-label="Behance">
             <i class="fab fa-behance"></i>
@@ -383,24 +345,32 @@
         </div>
 
         <div class="nav-pills">
-          <a href="#card3D" class="nav-link">Experiments</a>
-          <a href="#cardTouch" class="nav-link">Motion</a>
-          <a href="projects/spotify-uiux/index.html" target="_blank">Projects</a>
+          <a href="#card3D">Motion</a>
+          <a href="#cardTouch">Typography</a>
+          <a href="projects/spotify-uiux/index.html" target="_blank">App Design</a>
         </div>
       </div>
     </div>
 
     <!-- 3D CARD (Soft Neutral) -->
     <div class="section-card card-3d" id="card3D">
-      <!-- Masonry layout -->
+      <!-- Removed section-title as per user request -->
       <div class="multi-column" id="multiCol3D">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
       </div>
     </div>
 
     <!-- TOUCH CARD (Soft Neutral) -->
     <div class="section-card card-touch" id="cardTouch">
-      <!-- Masonry layout -->
+      <!-- Removed section-title as per user request -->
       <div class="multi-column" id="multiColTouch">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
       </div>
     </div>
   </div> <!-- end page-wrapper -->
@@ -471,12 +441,12 @@
 
   <script>
     /*************************************************************
-     * 3) CREATE & LAZY-LOAD videos for 3D & Touch (MASONRY)
+     * 3) CREATE & LAZY-LOAD videos for 3D & Touch
      *************************************************************/
     const threeDCount = 18;
     const touchCount = 18;
-    const multiCol3D = document.getElementById('multiCol3D');
-    const multiColTouch = document.getElementById('multiColTouch');
+    const multiCol3D = document.getElementById('multiCol3D').children;
+    const multiColTouch = document.getElementById('multiColTouch').children;
 
     // Hardcoded arrays with video file names (just the base names)
     const threeDVideos = [
@@ -504,28 +474,28 @@
       "Movie42.mp4"
     ];
 
-    // Fill 3D videos (directly in masonry container)
+    // Fill 3D videos
     threeDVideos.forEach((video, index) => {
       const vid = document.createElement('video');
       vid.className = 'rect-video';
-      vid.dataset.src = `assets/${video}`;
+      vid.dataset.src = `assets/${video}`; // Append "assets/" to the filename
       vid.preload = 'auto';
       vid.muted = true;
       vid.playsInline = true;
       vid.loading = 'lazy';
-      multiCol3D.appendChild(vid);
+      multiCol3D[index % 4].appendChild(vid); // Distribute videos across columns
     });
 
-    // Fill Touch videos (directly in masonry container)
+    // Fill Touch videos
     touchVideos.forEach((video, index) => {
       const vid = document.createElement('video');
       vid.className = 'rect-video';
-      vid.dataset.src = `assets/${video}`;
+      vid.dataset.src = `assets/${video}`; // Append "assets/" to the filename
       vid.preload = 'auto';
       vid.muted = true;
       vid.playsInline = true;
       vid.loading = 'lazy';
-      multiColTouch.appendChild(vid);
+      multiColTouch[index % 4].appendChild(vid); // Distribute videos across columns
     });
 
     const allVids = document.querySelectorAll('.rect-video');
@@ -552,19 +522,17 @@
 
   <script>
     /*************************************************************
-     * 5) SCROLL TILT => only on desktop
+     * 5) SCROLL TILT => only on smaller screens
      *************************************************************/
     function enableTiltForNonDesktop() {
-      if (window.innerWidth > 1024) { // Only enable on desktop
-        window.addEventListener('scroll', tiltHandler);
-      }
+      window.addEventListener('scroll', tiltHandler);
     }
     function tiltHandler() {
       allVids.forEach(video => {
         const rect = video.getBoundingClientRect();
         const distance = window.innerHeight - rect.bottom;
         const maxDistance = 300.0;
-        let angle = (distance / maxDistance) * 8; // Reduced from 10 to 8
+        let angle = (distance / maxDistance) * 10;
         angle = Math.max(0, Math.min(200, angle));
         video.style.transform = `rotateY(${angle}deg)`;
       });
@@ -592,7 +560,7 @@
 
   <script>
     /*************************************************************
-     * 7) DESKTOP OVERLAY => click + MOBILE FULLSCREEN
+     * 7) DESKTOP OVERLAY => click
      *************************************************************/
     const desktopOverlay = document.getElementById('desktopOverlay');
     const overlayVideo = document.getElementById('overlayVideo');
@@ -600,20 +568,9 @@
 
     function handleDesktopClick(e) {
       if (window.innerWidth >= 1024) {
-        // Desktop: use overlay
         desktopOverlay.classList.add('active');
         overlayVideo.src = e.currentTarget.src;
         overlayVideo.play();
-      } else {
-        // Mobile: go fullscreen
-        const vid = e.currentTarget;
-        if (vid.requestFullscreen) {
-          vid.requestFullscreen();
-          vid.play();
-        } else if (vid.webkitRequestFullscreen) {
-          vid.webkitRequestFullscreen();
-          vid.play();
-        }
       }
     }
     allVids.forEach(video => {
@@ -624,15 +581,6 @@
       desktopOverlay.classList.remove('active');
       overlayVideo.pause();
       overlayVideo.src = "";
-    });
-    
-    // Close on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && desktopOverlay.classList.contains('active')) {
-        desktopOverlay.classList.remove('active');
-        overlayVideo.pause();
-        overlayVideo.src = "";
-      }
     });
   </script>
 
@@ -697,32 +645,6 @@
 
     handleMobileHold(mediaQuery);
     mediaQuery.addEventListener('change', handleMobileHold);
-  </script>
-  
-  <script>
-    /*************************************************************
-     * 9) SCROLL SPY => Active navigation highlighting
-     *************************************************************/
-    const sections = document.querySelectorAll('.section-card');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (window.scrollY >= (sectionTop - 300)) {
-          current = section.getAttribute('id');
-        }
-      });
-      
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').includes(current)) {
-          link.classList.add('active');
-        }
-      });
-    });
   </script>
 </body>
 </html>

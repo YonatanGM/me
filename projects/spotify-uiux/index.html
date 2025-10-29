@@ -10,19 +10,152 @@
             padding: 0;
             font-family: "Helvetica Neue", Arial, sans-serif;
             color: white;
-            background: linear-gradient(135deg, #121212, #282828);
+            background: #000000;
+            overflow-x: hidden;
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
         }
         h1, h2 {
             color: #1DB954; /* Spotify Green */
         }
+        
+        /* HORIZONTAL CAROUSEL */
+        .carousel-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            min-height: 0;
+            padding: 10px 0;
+            background: #000000;
+        }
+        
+        .carousel-track {
+            flex: 1;
+            display: flex;
+            gap: 1.5rem;
+            padding: 0 5%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            align-items: center;
+        }
+        
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .carousel-item {
+            flex: 0 0 25%;
+            max-width: 350px;
+            max-height: 70vh;
+            scroll-snap-align: center;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+        }
+        
+        .carousel-item img,
+        .carousel-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        
+        /* Navigation dots */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 15px 0;
+            flex-shrink: 0;
+            background: #000000;
+            min-height: 40px;
+        }
+        
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-dot.active {
+            background: #1DB954;
+            width: 24px;
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 1024px) {
+            body {
+                height: auto;
+            }
+            
+            .intro {
+                padding: 30px 20px 15px 20px;
+            }
+            
+            .intro h1 {
+                font-size: 1.8rem;
+            }
+            
+            .intro p {
+                font-size: 1rem;
+            }
+            
+            .carousel-container {
+                padding: 30px 0;
+            }
+            
+            .carousel-track {
+                gap: 1.5rem;
+            }
+            
+            .carousel-item {
+                flex: 0 0 45%;
+                max-height: none;
+            }
+            
+            .carousel-item img,
+            .carousel-item video {
+                height: auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .carousel-item {
+                flex: 0 0 70%;
+            }
+            .carousel-track {
+                gap: 1.5rem;
+            }
+        }
+        
         .intro {
             max-width: 800px;
             text-align: center;
-            margin: 40px auto;
+            margin: 0 auto;
+            padding: 20px 20px 10px 20px;
+            flex-shrink: 0;
+        }
+        
+        .intro h1 {
+            margin: 0 0 8px 0;
+            font-size: 1.5rem;
+        }
+        
+        .intro p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
         .section {
             max-width: 900px;
@@ -156,157 +289,157 @@
 </head>
 <body>
     <div class="intro">
-        <h1>Chat for Spotify – UI/UX</h1>
+        <h1>Chat for Spotify</h1>
         <p>
-            Hey there! This started as an iOS app built in SwiftUI and was live for a good while, tapping into Spotify APIs
-            so people could discover new friends through shared music taste. I’ve since retired it.
-            Below are some screens and quick insights into what I did and why.
+            An iOS app built in SwiftUI that connected people through shared music taste using Spotify APIs.
         </p>
     </div>
 
-    <!-- Icon -->
-    <div class="divider">1 <span>Icon</span> </div>
-    <div class="single-item-section">
-        <div class="card">
-            <div class="image-container">
+    <!-- Everything in ONE carousel -->
+    <div class="carousel-container">
+        <div class="carousel-track" id="mainCarousel">
+            <!-- Icon first -->
+            <div class="carousel-item">
                 <img src="assets/images/1024x1024bb.png" alt="App Icon">
-                <div class="card-description">
-                    The icon was modelled in Houdini. I was going for a skeuomorphic look with reflective surfaces.
-                </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Login -->
-    <div class="divider">2 <span>Login</span> </div>
-    <div class="single-item-section">
-        <div class="card">
-            <div class="image-container">
+            
+            <!-- Login -->
+            <div class="carousel-item">
                 <img src="assets/images/login.png" alt="Login Screen">
-                <div class="card-description">
-                    Simple login with Spotify. The dark gradient background was inspired by Spotify Greenroom app's design (now Spotify Live).
-                </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Main Screen -->
-    <div class="divider">3 <span>Main Screen</span> </div>
-    <div class="section">
-        <div class="card">
-            <div class="image-container">
+            
+            <!-- Main Screens -->
+            <div class="carousel-item">
                 <img src="assets/images/0x0ss.png" alt="Matchmaking and Suggestions">
-                <div class="card-description">
-                    You can scroll horizontally to see recommended tracks, artists, or new people.
-                    The artist icons under the users are scrollable too and offer a quick preview of the user's favorites.
-                </div>
             </div>
-        </div>
-        <div class="card">
-            <div class="image-container">
+            <div class="carousel-item">
                 <img src="assets/images/0x0ss-2.png" alt="Recommendations Screen">
-                <div class="card-description">
-                    Recommendations show album art and metadata, plus play/like buttons.
-                </div>
             </div>
-        </div>
-        <div class="card">
-            <div class="image-container">
+            <div class="carousel-item">
                 <img src="assets/images/0x0ss-5.png" alt="Find Friends Screen">
-                <div class="card-description">
-                    The “Find” bar at the bottom (safari style). As you type in any artist or track, you’ll see keywords appear as horizontal chips above it, and a matching set of user cards
-                    just above that.
-                </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Chat and Group Features -->
-    <div class="divider">4 <span>Chat and Group </span> </div>
-    <div class="section">
-        <div class="card">
-            <div class="image-container">
+            
+            <!-- Chat and Groups -->
+            <div class="carousel-item">
                 <img src="assets/images/0x0ss-7.png" alt="Conversations List">
-                <div class="card-description">
-                    This is the active chats view. Each conversation card shows user avatars and genres. Accept invites with one tap—makes it easy to jump into chats.
-                </div>
             </div>
-        </div>
-        <div class="card">
-            <div class="image-container">
+            <div class="carousel-item">
                 <img src="assets/images/0x0ss-8.png" alt="Group Chat">
-                <div class="card-description">
-                    Group chats list all participants in the user “bubbles” up top (it's scrollable too). Pulling that off in SwiftUI with dynamic profiles was a bit tricky.
-                </div>
             </div>
-        </div>
-        <div class="card">
-            <div class="image-container">
+            <div class="carousel-item">
                 <img src="assets/images/0x0ss-6.png" alt="Group Creation Screen">
-                <div class="card-description">
-                    Group creation uses the same horizontally scrollable system. You type in track or artist names,
-                    those keywords appear as little capsules, and matching people show up above. Avatars are removable
-                    if you change your mind.
-                </div>
             </div>
-        </div>
-    </div>
-
-    <!-- User Profiles -->
-    <div class="divider">5 <span>User Profiles</span> </div>
-    <div class="section">
-        <div class="card">
-            <div class="image-container">
+            
+            <!-- Profiles -->
+            <div class="carousel-item">
                 <img src="assets/images/0x0ss-4.png" alt="User Profile - Self">
-                <div class="card-description">
-                    For the profile page, I layered a grid of favorite artist icons behind the user.
-                    It’s got a subtle color-bleeding animation, inspired by old iTunes. There’s also a sparkly button that spits out cursive AI generated bio.
-                </div>
             </div>
-        </div>
-        <div class="card">
-            <div class="image-container">
+            <div class="carousel-item">
                 <img src="assets/images/0x0ss-3.png" alt="User Profile - Others">
-                <div class="card-description">
-                    Other users’ profiles also show their favorite artists, genres,
-                    and a short bio.
-                </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Preview Clips -->
-    <div class="divider">6 <span>Preview Clips</span> </div>
-    <div class="section">
-        <!-- We transform each video into a card -->
-        <div class="card">
-            <div class="video-container">
+            
+            <!-- Videos at the end -->
+            <div class="carousel-item">
                 <video controls>
                     <source src="assets/videos/screen1.mp4" type="video/mp4">
-                    <!-- fallback text -->
                     Your browser does not support the video tag.
                 </video>
             </div>
-        </div>
-        <div class="card">
-            <div class="video-container">
+            <div class="carousel-item">
                 <video controls>
                     <source src="assets/videos/output.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
         </div>
-        <!-- If you have a third video, just add another .card -->
-        <!--
-        <div class="card">
-            <div class="video-container">
-                <video controls>
-                    <source src="preview-3.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        </div>
-        -->
+        <div class="carousel-dots" id="mainDots"></div>
     </div>
+    <script>
+        // Single carousel for everything
+        const carousel = document.getElementById('mainCarousel');
+        const dotsContainer = document.getElementById('mainDots');
+        const items = carousel.querySelectorAll('.carousel-item');
+        let currentIndex = 0;
+        
+        console.log('Items found:', items.length);
+        console.log('Dots container:', dotsContainer);
+        
+        // Create dots
+        items.forEach((item, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'carousel-dot';
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                scrollToIndex(currentIndex);
+            });
+            dotsContainer.appendChild(dot);
+            console.log('Created dot', index);
+        });
+        
+        console.log('Total dots created:', dotsContainer.children.length);
+        
+        // Function to scroll to specific index
+        function scrollToIndex(index) {
+            const targetItem = items[index];
+            if (targetItem) {
+                const containerWidth = carousel.offsetWidth;
+                const itemWidth = targetItem.offsetWidth;
+                const gap = parseFloat(getComputedStyle(carousel).gap) || 32;
+                const scrollPosition = (itemWidth + gap) * index - (containerWidth / 2) + (itemWidth / 2);
+                
+                carousel.scrollTo({
+                    left: scrollPosition,
+                    behavior: 'smooth'
+                });
+                updateActiveDot(index);
+            }
+        }
+        
+        // Update active dot
+        function updateActiveDot(index) {
+            document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+        
+        // Update active dot on manual scroll
+        let scrollTimeout;
+        carousel.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const scrollLeft = carousel.scrollLeft;
+                const containerWidth = carousel.offsetWidth;
+                const itemWidth = items[0].offsetWidth;
+                const gap = parseFloat(getComputedStyle(carousel).gap) || 32;
+                
+                const newIndex = Math.round((scrollLeft + containerWidth / 2 - itemWidth / 2) / (itemWidth + gap));
+                const clampedIndex = Math.max(0, Math.min(items.length - 1, newIndex));
+                
+                if (clampedIndex !== currentIndex) {
+                    currentIndex = clampedIndex;
+                    updateActiveDot(currentIndex);
+                }
+            }, 100);
+        });
+        
+        // Keyboard navigation (left/right arrows)
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                if (currentIndex < items.length - 1) {
+                    currentIndex++;
+                    scrollToIndex(currentIndex);
+                }
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    scrollToIndex(currentIndex);
+                }
+            }
+        });
+    </script>
 </body>
+</html>
 </html>
