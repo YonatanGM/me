@@ -15,12 +15,16 @@
       box-sizing: border-box;
     }
 
-    /* BODY => Light background with elegant font color */
+    /* BODY => Warm organic background */
     body {
       font-family: "Helvetica Neue", sans-serif;
-      background-color: #f5f5f5; /* Light gray background */
+      background: linear-gradient(180deg, #faf8f5 0%, #f0ebe3 100%); /* Warm cream gradient */
       color: #2c2c2c; /* Dark gray for text */
       overflow-x: hidden;
+    }
+    
+    html {
+      scroll-behavior: smooth; /* Smooth scrolling */
     }
 
     /************************************************************
@@ -38,13 +42,14 @@
     .hero-container {
       position: sticky;
       top: 0; left: 0; right: 0;
-      background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
-      backdrop-filter: blur(10px); /* Frosted glass effect */
-      border-bottom: 1px solid #e0e0e0; /* Subtle border */
+      background: rgba(250, 248, 245, 0.95); /* Warm semi-transparent */
+      backdrop-filter: blur(20px); /* Stronger frosted glass effect */
+      border-bottom: 1px solid rgba(218, 203, 184, 0.3); /* Warm subtle border */
       z-index: 2000;
       padding: 2rem;
       transition: padding 0.3s ease;
       color: #2c2c2c; /* Dark text */
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.03);
     }
     .hero-container.shrink {
       padding: 1rem;
@@ -53,13 +58,14 @@
     /* Animated pop for hero title letters with mask effect */
     .hero-title {
       display: inline-block;
-      font-size: 2rem;
-      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 300; /* Lighter, more refined */
       margin-bottom: 1rem;
       color: #2c2c2c; /* Solid dark text initially */
       position: relative;
       z-index: 1;
       transition: color 0.5s ease;
+      letter-spacing: -0.02em;
     }
 
     .hero-title.mask {
@@ -116,11 +122,12 @@
       display: none; /* Hide about/contact in shrink mode */
     }
     .hero-about {
-      line-height: 1.5;
-      font-size: 0.95rem;
-      color: #7f7f7f; /* Medium gray for subtlety */
+      line-height: 1.7;
+      font-size: 1.05rem;
+      color: #6b6b6b; /* Softer gray */
       margin-bottom: 1.5rem;
-      max-width: 900px;
+      max-width: 700px;
+      font-weight: 400;
     }
     .contact-row {
       display: flex;
@@ -130,13 +137,14 @@
     }
 
     .contact-row a {
-      color: #7f7f7f; /* Medium gray for icons */
+      color: #8b7355; /* Warm brown for icons */
       font-size: 24px;
       text-decoration: none;
-      transition: color 0.3s;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .contact-row a:hover {
-      color: #1a73e8; /* Elegant blue on hover */
+      color: #c49a6c; /* Warm gold on hover */
+      transform: translateY(-2px);
     }
 
     /* Nav pills with simplified hover effect */
@@ -147,21 +155,29 @@
     .nav-pills a {
       position: relative;
       display: inline-block;
-      padding: 0.5rem 1rem;
-      border-radius: 4px; /* Changed from 999px to 4px for a square-like shape */
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
       text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #2c2c2c; /* Dark text */
-      background: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
-      backdrop-filter: blur(5px); /* Slight blur for blending */
-      border: 1px solid transparent; /* Initial border */
-      transition: border-color 0.3s, color 0.3s;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #2c2c2c;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(139, 115, 85, 0.2);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .nav-pills a:hover {
-      border-color: #1a73e8; /* Border color matches contact icons' hover blue */
-
-      background: rgba(255, 255, 255, 0.7); /* Maintain background on hover */
+      border-color: #8b7355;
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(139, 115, 85, 0.15);
+    }
+    .nav-pills a.active {
+      background: #8b7355;
+      color: #ffffff;
+      border-color: #8b7355;
     }
 
     /************************************************************
@@ -172,69 +188,122 @@
       margin-top: -40px;
       padding-top: 8rem;
       padding-bottom: 4rem;
-      border-radius: 0 0 20px 20px;
+      border-radius: 0 0 30px 30px;
       overflow: hidden;
-      color: #2c2c2c; /* Dark text */
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-      background-color: #ffffff; /* White background */
-      border: 1px solid #e0e0e0; /* Light gray border */
+      color: #2c2c2c;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      background-color: #ffffff;
+      border: 1px solid rgba(218, 203, 184, 0.2);
     }
 
     /* Removed section titles as per user request */
 
-    /* Adjusted multi-column layout for better spacing */
+    /* Masonry layout for organic feel */
     .multi-column {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
+      column-count: 4;
+      column-gap: 1.2rem;
       padding: 1rem;
     }
     .col {
+      /* Not used in masonry, but keeping for compatibility */
       flex: 1;
       min-width: 200px;
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
+    
+    /* Override for masonry items */
+    .multi-column .rect-video {
+      break-inside: avoid;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
 
-    /* Responsive Columns */
+    /* Responsive Masonry Columns */
     @media (max-width: 767px) {
-      .col {
-        width: 100%;
+      .multi-column {
+        column-count: 1;
       }
     }
     @media (min-width: 768px) and (max-width: 1023px) {
-      .col {
-        width: 50%;
+      .multi-column {
+        column-count: 2;
       }
     }
-    @media (min-width: 1024px) {
-      .col {
-        width: 25%;
+    @media (min-width: 1024px) and (max-width: 1400px) {
+      .multi-column {
+        column-count: 3;
       }
     }
 
-    /* Enhanced Video Layout */
+    /* Enhanced Video Layout with hover indicator */
     .rect-video {
       width: 100%;
       cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
-      border-radius: 0px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      background-color: #f0f0f0; /* Placeholder background */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      background: linear-gradient(135deg, #f5f1ed 0%, #e8dfd5 100%);
+      position: relative;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    
+    /* Staggered fade-in animation */
+    .rect-video:nth-child(1) { animation-delay: 0.05s; }
+    .rect-video:nth-child(2) { animation-delay: 0.1s; }
+    .rect-video:nth-child(3) { animation-delay: 0.15s; }
+    .rect-video:nth-child(4) { animation-delay: 0.2s; }
+    .rect-video:nth-child(5) { animation-delay: 0.25s; }
+    .rect-video:nth-child(6) { animation-delay: 0.3s; }
+    .rect-video:nth-child(7) { animation-delay: 0.35s; }
+    .rect-video:nth-child(8) { animation-delay: 0.4s; }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Play indicator overlay */
+    .rect-video::after {
+      content: '▶';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      color: rgba(255, 255, 255, 0.8);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 10;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
 
     .rect-video:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      transform: scale(1.02) translateY(-4px);
+      box-shadow: 0 12px 28px rgba(139, 115, 85, 0.2);
+      z-index: 10;
+    }
+    
+    .rect-video:hover::after {
+      opacity: 1;
     }
 
     /* Overlay Styling */
     .overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(255, 255, 255, 0.95); /* Light overlay */
+      background-color: rgba(250, 248, 245, 0.98); /* Warm overlay */
+      backdrop-filter: blur(10px);
       display: none;
       align-items: center;
       justify-content: center;
@@ -245,16 +314,17 @@
     }
     .overlay-content {
       position: relative;
-      background-color: #ffffff; /* White background */
-      padding: 1rem;
+      background-color: #ffffff;
+      padding: 1.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      max-width: 80%;
-      max-height: 80%;
+      max-width: 90%;
+      max-height: 90%;
       overflow: hidden;
-      border-radius: 10px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      border: 1px solid rgba(218, 203, 184, 0.3);
     }
     .overlay-content video {
       display: block;
@@ -264,19 +334,25 @@
     }
     .close-btn {
       position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      background-color: #e0e0e0; /* Light gray */
-      color: #2c2c2c; /* Dark text */
+      top: 1rem;
+      right: 1rem;
+      background-color: rgba(139, 115, 85, 0.9);
+      color: #ffffff;
       border: none;
-      font-size: 1rem;
-      padding: 0.3rem 0.6rem;
+      font-size: 1.2rem;
+      width: 36px;
+      height: 36px;
       cursor: pointer;
-      border-radius: 4px;
-      transition: background-color 0.3s;
+      border-radius: 50%;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 300;
     }
     .close-btn:hover {
-      background-color: #c0c0c0; /* Darker gray on hover */
+      background-color: #8b7355;
+      transform: rotate(90deg) scale(1.1);
     }
   </style>
 </head>
@@ -289,7 +365,7 @@
       <div class="hero-content">
         <h1 class="hero-title" id="heroTitle"></h1>
         <div class="hero-about">
-          I work with procedural design and animations and like to tackle visual challenges using programming. I also enjoy UI development and data visualization. I'm currently looking for internships as a technical artist.
+          Visual experiments exploring procedural systems, generative design, and computational aesthetics.
         </div>
         <div class="contact-row">
           <a href="mailto:girmayonatan86@gmail.com" aria-label="Email">
@@ -307,32 +383,24 @@
         </div>
 
         <div class="nav-pills">
-          <a href="#card3D">3D</a>
-          <a href="#cardTouch">Typography</a>
-          <a href="projects/spotify-uiux/index.html" target="_blank">UI/UX</a>
+          <a href="#card3D" class="nav-link">Experiments</a>
+          <a href="#cardTouch" class="nav-link">Motion</a>
+          <a href="projects/spotify-uiux/index.html" target="_blank">Projects</a>
         </div>
       </div>
     </div>
 
     <!-- 3D CARD (Soft Neutral) -->
     <div class="section-card card-3d" id="card3D">
-      <!-- Removed section-title as per user request -->
+      <!-- Masonry layout -->
       <div class="multi-column" id="multiCol3D">
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
       </div>
     </div>
 
     <!-- TOUCH CARD (Soft Neutral) -->
     <div class="section-card card-touch" id="cardTouch">
-      <!-- Removed section-title as per user request -->
+      <!-- Masonry layout -->
       <div class="multi-column" id="multiColTouch">
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
       </div>
     </div>
   </div> <!-- end page-wrapper -->
@@ -403,12 +471,12 @@
 
   <script>
     /*************************************************************
-     * 3) CREATE & LAZY-LOAD videos for 3D & Touch
+     * 3) CREATE & LAZY-LOAD videos for 3D & Touch (MASONRY)
      *************************************************************/
     const threeDCount = 18;
     const touchCount = 18;
-    const multiCol3D = document.getElementById('multiCol3D').children;
-    const multiColTouch = document.getElementById('multiColTouch').children;
+    const multiCol3D = document.getElementById('multiCol3D');
+    const multiColTouch = document.getElementById('multiColTouch');
 
     // Hardcoded arrays with video file names (just the base names)
     const threeDVideos = [
@@ -436,28 +504,28 @@
       "Movie42.mp4"
     ];
 
-    // Fill 3D videos
+    // Fill 3D videos (directly in masonry container)
     threeDVideos.forEach((video, index) => {
       const vid = document.createElement('video');
       vid.className = 'rect-video';
-      vid.dataset.src = `assets/${video}`; // Append "assets/" to the filename
+      vid.dataset.src = `assets/${video}`;
       vid.preload = 'auto';
       vid.muted = true;
       vid.playsInline = true;
       vid.loading = 'lazy';
-      multiCol3D[index % 4].appendChild(vid); // Distribute videos across columns
+      multiCol3D.appendChild(vid);
     });
 
-    // Fill Touch videos
+    // Fill Touch videos (directly in masonry container)
     touchVideos.forEach((video, index) => {
       const vid = document.createElement('video');
       vid.className = 'rect-video';
-      vid.dataset.src = `assets/${video}`; // Append "assets/" to the filename
+      vid.dataset.src = `assets/${video}`;
       vid.preload = 'auto';
       vid.muted = true;
       vid.playsInline = true;
       vid.loading = 'lazy';
-      multiColTouch[index % 4].appendChild(vid); // Distribute videos across columns
+      multiColTouch.appendChild(vid);
     });
 
     const allVids = document.querySelectorAll('.rect-video');
@@ -484,17 +552,19 @@
 
   <script>
     /*************************************************************
-     * 5) SCROLL TILT => only on smaller screens
+     * 5) SCROLL TILT => only on desktop
      *************************************************************/
     function enableTiltForNonDesktop() {
-      window.addEventListener('scroll', tiltHandler);
+      if (window.innerWidth > 1024) { // Only enable on desktop
+        window.addEventListener('scroll', tiltHandler);
+      }
     }
     function tiltHandler() {
       allVids.forEach(video => {
         const rect = video.getBoundingClientRect();
         const distance = window.innerHeight - rect.bottom;
         const maxDistance = 300.0;
-        let angle = (distance / maxDistance) * 10;
+        let angle = (distance / maxDistance) * 8; // Reduced from 10 to 8
         angle = Math.max(0, Math.min(200, angle));
         video.style.transform = `rotateY(${angle}deg)`;
       });
@@ -522,7 +592,7 @@
 
   <script>
     /*************************************************************
-     * 7) DESKTOP OVERLAY => click
+     * 7) DESKTOP OVERLAY => click + MOBILE FULLSCREEN
      *************************************************************/
     const desktopOverlay = document.getElementById('desktopOverlay');
     const overlayVideo = document.getElementById('overlayVideo');
@@ -530,9 +600,20 @@
 
     function handleDesktopClick(e) {
       if (window.innerWidth >= 1024) {
+        // Desktop: use overlay
         desktopOverlay.classList.add('active');
         overlayVideo.src = e.currentTarget.src;
         overlayVideo.play();
+      } else {
+        // Mobile: go fullscreen
+        const vid = e.currentTarget;
+        if (vid.requestFullscreen) {
+          vid.requestFullscreen();
+          vid.play();
+        } else if (vid.webkitRequestFullscreen) {
+          vid.webkitRequestFullscreen();
+          vid.play();
+        }
       }
     }
     allVids.forEach(video => {
@@ -543,6 +624,15 @@
       desktopOverlay.classList.remove('active');
       overlayVideo.pause();
       overlayVideo.src = "";
+    });
+    
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && desktopOverlay.classList.contains('active')) {
+        desktopOverlay.classList.remove('active');
+        overlayVideo.pause();
+        overlayVideo.src = "";
+      }
     });
   </script>
 
@@ -607,6 +697,32 @@
 
     handleMobileHold(mediaQuery);
     mediaQuery.addEventListener('change', handleMobileHold);
+  </script>
+  
+  <script>
+    /*************************************************************
+     * 9) SCROLL SPY => Active navigation highlighting
+     *************************************************************/
+    const sections = document.querySelectorAll('.section-card');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (window.scrollY >= (sectionTop - 300)) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').includes(current)) {
+          link.classList.add('active');
+        }
+      });
+    });
   </script>
 </body>
 </html>
